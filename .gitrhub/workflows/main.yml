@@ -1,0 +1,33 @@
+name: Desafio Modulo 5 ejercicio 02
+
+on: 
+  pull_request:
+    branches:
+      - main
+
+  jobs:
+    ConstruirDocker:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: obtener repositorio
+        uses: actions/checkout@v2
+
+      - name: Verificar
+        if: success()
+        run: echo "El código se pudo obtener"
+      
+      - name: upload image to ECR
+        uses: appleboy/docker-ecr-action@master
+        with:
+          access_key: ${{ secrets.aws_access_key_id }}
+          secret_key: ${{ secrets.aws_secret_access_key }}
+          registry: ${{ secrets.registry }}
+          repo: desafiom5-02
+          region: us-east-1
+          auto_tag: true
+          daemon_off: false
+          dockerfile: ./Dockerfile
+          context: .
+
+
