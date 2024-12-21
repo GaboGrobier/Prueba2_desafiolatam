@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  ConstruirDocker:
+  Construi_Docker_y_subir:
     runs-on: ubuntu-latest
     steps:
 
