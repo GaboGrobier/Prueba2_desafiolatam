@@ -27,5 +27,5 @@ jobs:
           region: us-east-1
           auto_tag: true
           daemon_off: false
-          dockerfile: ./Dockerfile
+          dockerfile: .repo/Dockerfile
           context: .
