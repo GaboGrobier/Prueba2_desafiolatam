@@ -18,8 +18,11 @@ jobs:
         run: echo "El código se pudo obtener"
 
 
-      - name: construir docker 
-        run: docker build -t desafiom5-02 .
+      - name: Construir Docker 
+        run: |
+          cd repo
+          docker build -t desafiom5-02 .
+
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
