@@ -16,16 +16,23 @@ jobs:
       - name: Verificar
         if: success()
         run: echo "El código se pudo obtener"
-  
-      - name: upload image to ECR
-        uses: appleboy/docker-ecr-action@master
+
+
+      - name: construir docker 
+        run: docker build -t desafiom5-02 .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          access_key: ${{ secrets.aws_access_key_id }}
-          secret_key: ${{ secrets.aws_secret_access_key }}
-          registry: ${{ secrets.registry }}
-          repo: desafiom5-02
-          region: us-east-1
-          auto_tag: true
-          daemon_off: false
-          dockerfile: ./repo/Dockerfile   
-          context: ./repo    
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+
+      - name: subir imagen 
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.registry }}
+          docker tag desafiom5-02:latest ${{ secrets.registry }}/desafiom5-02:1.0
+          docker push ${{ secrets.registry }}/desafiom502:1.0
+
+  
