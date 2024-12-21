@@ -35,3 +35,25 @@ jobs:
           docker tag desafiom5-02:1.0 ${{ secrets.registry }}/desafiom5-02:1.0
           docker push ${{ secrets.registry }}/desafiom5-02:1.0
 
+
+      - name: Actualizar definición de tarea ECS
+        run: |
+          ecs_definition=$(aws ecs register-task-definition \
+            --family desafiom5-02 \
+            --container-definitions "[{
+              \"name\": \"desafiom5-02-container\",
+              \"image\": \"${{ secrets.registry }}/desafiom5-02:1.0\",
+              \"memory\": 512,
+              \"cpu\": 256,
+              \"essential\": true
+            }]")
+  
+            echo "New task definition registered: $ecs_definition"
+  
+      - name: Actualizar servicio ECS
+        run: | 
+          new_task_definition_arn=$(echo $ecs_definition | jq -r '.taskDefinition.taskDefinitionArn')
+          aws ecs update-service \
+            --cluster desafiom5-cluster \
+            --service desafiom5-service \
+            --task-definition $new_task_definition_arn
