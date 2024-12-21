@@ -5,8 +5,8 @@ on:
     branches:
       - main
 
-  jobs:
-    ConstruirDocker:
+jobs:
+  ConstruirDocker:
     runs-on: ubuntu-latest
     steps:
 
@@ -16,7 +16,7 @@ on:
       - name: Verificar
         if: success()
         run: echo "El código se pudo obtener"
-      
+  
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
@@ -29,5 +29,3 @@ on:
           daemon_off: false
           dockerfile: ./Dockerfile
           context: .
-
-
