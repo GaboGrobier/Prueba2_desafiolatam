@@ -1,9 +1,9 @@
 {
-    "family": "desafiom5-family",
+    "family": "desafiolatam-gabogrobier",
     "containerDefinitions": [
       {
         "name": "desafiom5",
-        "image": "354918393508.dkr.ecr.us-east-1.amazonaws.com/prueba2:1.0",
+        "image": "${ECR_REGISTRY}/prueba2:${IMAGE_TAG}",
         "cpu": 0,
         "portMappings": [
           {
