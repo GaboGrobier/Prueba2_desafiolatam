@@ -1,7 +1,7 @@
 name: Desafio Modulo 5 ejercicio 02
 
 on: 
-  push:
+ pull_request:
     branches:
       - main
 
