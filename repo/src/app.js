@@ -5,7 +5,7 @@ const app = express();
 
 // Ruta principal
 app.get('/', (req, res) => {
-    res.send('Ejercicio Modulo 5 desafio 2 por Gabriel Grobier - se hace 0 cambios para subir');
+    res.send('Ejercicio prueba 2 por Gabriel Grobier - se hace 0 cambios para subir');
 });
 
 // Ruta para obtener datos de una API externa
